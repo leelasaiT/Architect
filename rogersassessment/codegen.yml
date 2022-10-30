@@ -1,0 +1,12 @@
+overwrite: true
+schema:
+  - https://graphql.contentful.com/content/v1/spaces/8utyj17y1gom:
+      headers:
+        Authorization: "Bearer e50d8ac79fd7a3545d8c0049c6a1216f5d358a192467c77584eca6fad21e0f37"
+documents: "src/**/*.graphql"
+generates:
+  src/app/generated/graphql.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-apollo-angular"

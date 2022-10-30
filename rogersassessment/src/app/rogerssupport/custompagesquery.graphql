@@ -1,0 +1,51 @@
+query customPageTemplate($include: Int, $url: String){
+  pageTemplateCollection(skip:0, limit:$include, where:{
+    url_in: [$url]
+  }) {
+    total,
+    skip,
+    limit,
+    items {
+      sys{
+        id,
+        spaceId,
+        environmentId,
+        publishedAt,
+        firstPublishedAt,
+        publishedVersion
+      },
+      contentfulMetadata{
+        tags {
+          id,
+          name
+        }
+      },
+      url,
+      isShowVaButton,
+      chatId,
+      isPageLiveChat,
+      seo{
+        sys{
+          id,
+          spaceId,
+          environmentId,
+          publishedAt,
+          firstPublishedAt,
+          publishedVersion
+        },
+        contentfulMetadata{
+          tags {
+            id,
+            name
+          }
+        },
+        entryTitle,
+        title,
+        description,
+        canonicalUrl,
+        isNoIndex
+      },
+      onsiteSearchIndexing
+    }
+  }
+}

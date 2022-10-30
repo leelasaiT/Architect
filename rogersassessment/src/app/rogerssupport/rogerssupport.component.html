@@ -1,0 +1,87 @@
+<div class="toolbar" role="banner">
+    <div class="spacer"></div>
+    <span>Test 2 - Graphql based assessment</span>
+    <div class="spacer"></div>
+</div>
+
+<div class="content" role="main">
+    <!-- Test 2 - 1 -->
+    <div class="card-container">
+        <div style="display: block;">
+            <div class="card">
+                <p><b>Test 2 - 1</b></p>
+                <p><b>Output of REST API call</b></p>
+            </div>
+        </div>
+        <p style="margin-top: 30px;"><b>URL's</b></p>
+        <p *ngFor="let item of items">
+            {{ item.fields.url }}
+        </p>
+        <p style="margin-top: 30px;"><b>SEO title, description and isNoIndex fields</b></p>
+        <div *ngFor="let entry of entries">
+            <p *ngIf="entry.fields.title"><b>SEO Title:</b> {{ entry.fields.title }}</p>
+            <p *ngIf="entry.fields.description"><b>Description:</b> {{ entry.fields.description }}</p>
+            <p *ngIf="entry.fields.isNoIndex"><b>isNoIndex:</b> {{ entry.fields.isNoIndex }}</p>
+        </div>
+    </div>
+    <!-- Test 2 - 2 -->
+    <div class="card-container" style="margin-top: 30px;">
+        <div class="card">
+            <p><b>Test 2 - 2</b></p>
+            <p><b>Output of Graphql query (Query is available in file: custompagesquery.graphql)</b></p>
+        </div>
+        <p><b>Input is "include" and "url" similar to the query in Test 2 - 1</b></p>
+        <div>
+            <p>{{ customPageCollection?.items | json }}</p>
+        </div>
+    </div>
+    <!-- Test 2 - 3 -->
+    <div class="card-container" style="margin-top: 30px;">
+        <div class="card">
+            <p><b>Test 2 - 3</b></p>
+            <p><b>Output of Graphql query (Query is available in file: allpagesquery.graphql)</b></p>
+        </div>
+        <p><b>There is no input. All the entries are queried. Truncated to 3000 characters to reduce the characters shown on screen.</b></p>
+        <div>
+            <p>{{ allPageCollection?.items | json | slice:0:3000 }}...</p>
+        </div>
+    </div>
+    <!-- Test 2 - 4 -->
+    <div class="card-container" style="margin-top: 30px;">
+        <div class="card">
+            <p><b>Test 2 - 4</b></p>
+            <p><b>Formatted Data</b></p>
+        </div>
+        <p><b>Truncated to 3000 characters to reduce the characters shown on screen.</b></p>
+        <div>
+            <p>{{ itemsData | json | slice:0:3000 }}</p>
+        </div>
+    </div>
+    <!-- Test 2 - 5 -->
+    <div class="card-container" style="margin-top: 30px;">
+        <div class="card">
+            <p><b>Test 2 - 5</b></p>
+            <p><b>Rogers Support List Page</b></p>
+        </div>
+            <div style="width: 100%;">
+                <mat-card *ngFor="let item of data" class="card-support" (click)="navigate(item.title)">
+                    <div style="display: flex;">
+                        <div style="margin-left:30px;">
+                            <a (click)="navigate(item.title)"><h2>{{ item.title }}</h2></a>
+                            <span class="category">{{ item.category }}</span>
+                            <p>{{ item.description }}</p>
+                        </div>
+                    </div>
+                </mat-card>
+            
+                <mat-paginator
+                    [length]="this.itemsData.length" 
+                    [pageSize]="5" 
+                    [pageSizeOptions]="[5,10,25,100]"
+                    (page)="pageEvent = $event; onPaginateChange($event)"
+                    showFirstLastButtons>
+                </mat-paginator>
+            
+            </div>
+    </div>
+</div>
